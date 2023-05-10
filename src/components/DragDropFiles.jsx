@@ -1,6 +1,8 @@
 import { useState, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faFile } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faFile, faUpload, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { errorAlert, infoAlert, successAlert } from '../helpers/AlertHelper';
+
 
 function DragDropFiles() {
     const [files, setFiles] = useState(null);
@@ -15,11 +17,13 @@ function DragDropFiles() {
         const files = e.dataTransfer.files;
         const filesArray = Array.from(files);
         setFiles(filesArray);
-        console.log(filesArray);
     }
 
     //send files to server
     const handleUpload = () => {
+        infoAlert("Uploading files...");
+        errorAlert("Error uploading files!");
+        successAlert("Files uploaded successfully!");
         setFiles(null);
     }
 
@@ -40,8 +44,12 @@ function DragDropFiles() {
                         }
                     </ul>
                     <div className='action-buttons'>
-                        <button className="button button-upload" onClick={handleUpload}>Upload</button>
-                        <button className="button button-cancel" onClick={() => setFiles(null)}>Clear</button>
+                        <button className="button button-upload" onClick={handleUpload}>
+                            <FontAwesomeIcon icon={faUpload} size="lg" />
+                            Upload</button>
+                        <button className="button button-cancel" onClick={() => setFiles(null)}>
+                            <FontAwesomeIcon icon={faTrash} size="lg" />
+                            Clear</button>
                     </div>
                 </div>
 
