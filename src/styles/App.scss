@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;1,100;1,200&display=swap');
+@import "./Navbar.scss";
+@import "./Separator.scss";
+@import "./SearchBar.scss";
+@import "./Dashboard.scss";
+@import "./Drag-drop-element.scss";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#root {
+  height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  font-weight: normal;
+}
+
