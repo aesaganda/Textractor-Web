@@ -1,13 +1,10 @@
-import './styles/App.css'
-import CardElement from './components/CardElement.jsx'
-import ListElement from './components/ListElement'
+import './styles/App.scss'
+import Scanner from './pages/Scanner'
 
 function App() {
   return (
     <>
-      <h1>Vite + React</h1>
-      <CardElement/>
-      <ListElement/>
+      <Scanner/>
     </>
   )
 }
