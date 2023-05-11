@@ -1,7 +1,6 @@
-import SearchBar from "./SearchBar"
-// import Separator from "./Separator"
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+// import SearchBar from "./SearchBar"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 
 function Navbar() {
     return (
@@ -13,30 +12,31 @@ function Navbar() {
                         {/* <img src="https://i.imgur.com/9QX2XtO.png" alt="logo" /> */}
                         <h1>Logo</h1>
                     </div>
+                    <a className="icon" onClick={changeClassName}>
+                        <FontAwesomeIcon icon={faBars} size="lg" />
+                    </a>
                 </div>
-
-                <div className="navbar-link">
+                <div id='myTopnav' className="navbar-right topnav">
                     <div className="nav-link nav-link-active">Home</div>
                     <div className="nav-link">About</div>
                     <div className="nav-link">Contact</div>
-                </div>
-
-                <div className="navbar-right">
-                    <div className="navbar-right-search">
+                    {/* <div className="navbar-right-search">
                         <SearchBar />
-                    </div>
-                    <div className="navbar-right-profile">
-
-                    </div>
-
+                    </div> */}
+                    <div className="navbar-right-profile"></div>
                 </div>
-
-                {/* <FontAwesomeIcon icon={faCoffee} size="xs"/> */}
-                {/* <Separator hrColor="blue" hrWidth="100%"/> */}
             </div>
         </>
     )
 }
 
+function changeClassName() {
+    var x = document.getElementById("myTopnav");
+    if (x.className === "navbar-right topnav") {
+      x.className = "navbar-right responsive";
+    } else {
+      x.className = "navbar-right topnav";
+    }
+  }
 export default Navbar
 

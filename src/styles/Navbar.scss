@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    max-height: 200px;
+    min-height: 150px;
     background-color: rgba(17, 21, 28, 0.95);
     color: white;
     align-items: center;
@@ -12,16 +12,22 @@
         display: flex;
         flex-direction: row;
         margin: 30px;
+
+        .icon {
+            display: none;
+        }
     }
 
-    &-link {
+    &-right {
         display: flex;
         flex-direction: row;
-        width: 100%;
-        padding: 20px;
-        justify-content: center;
+        justify-content: flex-end;
         align-items: center;
-        font-size: 1.1em;
+        margin: 20px;
+
+        .topnav {
+            display: block;
+        }
 
         .nav-link {
             text-align: center;
@@ -41,16 +47,6 @@
                 border-radius: 5px;
             }
         }
-    }
-
-
-    &-right {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-end;
-        align-items: center;
-        width: 480px;
-        margin: 20px;
 
         &-search {
             margin: 10px;
@@ -58,15 +54,10 @@
         }
 
         &-profile {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            margin-right: 20px;
             width: 50px;
             height: 50px;
             border-radius: 50%;
             background-color: white;
-            margin: 10px;
 
             // &-img {
             //     width: 50px;
@@ -76,4 +67,48 @@
             // }
         }
     }
+}
+
+@media screen and (max-width: 800px) {
+    .navbar {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        min-height: auto;
+
+        &-left {
+            width: 100vw;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0px 30px;
+
+            .icon {
+                display: block;
+                color: white;
+                text-align: center;
+            }
+        }
+
+        &-right {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+
+            &-profile {
+                display: none;
+            }
+        }
+
+        .topnav {
+            display: none;
+        }
+
+        .responsive {
+            display: block;
+        }
+    }
+
 }

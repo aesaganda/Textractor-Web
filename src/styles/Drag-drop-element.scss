@@ -68,16 +68,27 @@
             color: #ffffff;
             margin: 10px;
 
+            &-disabled {
+                background-color: rgba(128, 128, 128, 0.33);
+                color: #999;
+                border: 2px solid rgba(128, 128, 128, 0.469);
+                cursor: not-allowed;
+            }
+
             &-upload {
 
                 background-color: rgba(78, 20, 220, 0.9);
                 border: 2px solid rgba(78, 20, 220, 0.9);
+
+
 
                 &:hover {
                     background-color: rgba(78, 20, 220, 0.7);
                     color: #ffffff;
                 }
             }
+
+
 
             &-cancel {
                 background-color: rgba(220, 20, 20, 0.9);
@@ -93,4 +104,47 @@
 
     }
 
+}
+
+@media screen and (max-width: 800px) {
+    .dropzone {
+        h3 {
+            font-size: 0.8rem;
+        }
+
+        p {
+            font-size: 0.7rem;
+        }
+
+        .file-select-button {
+            width: 100px;
+            height: 30px;
+            font-size: 0.8rem;
+        }
+    }
+
+    .files {
+
+        li {
+            list-style: none;
+
+        }
+
+        p {
+            font-size: 0.8rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            .button {
+                width: 100px;
+                height: 30px;
+                font-size: 0.8rem;
+            }
+        }
+    }
 }
