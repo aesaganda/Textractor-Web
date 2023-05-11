@@ -1,6 +1,13 @@
 import DragDropFiles from "./DragDropFiles"
+import { useState } from "react"
 
 function Dashboard() {
+    const [fileContentData, setFileContentData] = useState("");
+
+    const handleDataChange = (data) => {
+        setFileContentData(data);
+    };
+
   return (
     <>
         <div className="dashboard">
@@ -10,9 +17,11 @@ function Dashboard() {
             <div className="dashboard-body">
                 <div className="dashboard-card-wrapper">
                     <div className="card card-upload">
-                        <DragDropFiles />
+                        <DragDropFiles onDataChange = {handleDataChange}/>
                     </div>
-                    <div className="card card-text"></div>
+                    <div className="card card-text">
+                        <p>{fileContentData}</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -22,3 +31,5 @@ function Dashboard() {
 }
 
 export default Dashboard
+
+
