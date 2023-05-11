@@ -94,3 +94,46 @@
     }
 
 }
+
+@media screen and (max-width: 800px) {
+    .dropzone {
+        h3 {
+            font-size: 0.8rem;
+        }
+
+        p {
+            font-size: 0.7rem;
+        }
+
+        .file-select-button {
+            width: 100px;
+            height: 30px;
+            font-size: 0.8rem;
+        }
+    }
+
+    .files {
+
+        li {
+            list-style: none;
+
+        }
+
+        p {
+            font-size: 0.8rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            .button {
+                width: 100px;
+                height: 30px;
+                font-size: 0.8rem;
+            }
+        }
+    }
+}

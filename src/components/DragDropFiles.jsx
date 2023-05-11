@@ -2,6 +2,8 @@ import { useState, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faFile, faUpload, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { errorAlert, infoAlert, successAlert } from '../helpers/AlertHelper';
+import LanguageSelector from './LanguageSelector';
+
 
 
 function DragDropFiles() {
@@ -22,7 +24,7 @@ function DragDropFiles() {
         // const files = e.dataTransfer.files;
         // const filesArray = Array.from(files);
         // setFiles(filesArray);
-        
+
     }
 
     //send files to server
@@ -37,18 +39,20 @@ function DragDropFiles() {
         return (
             <>
                 <div className="files">
-                    <ul>
-                        {
-                            Array.from(files).map((file, index) => {
-                                return (
-                                    <li key={index}>
-                                        <span>{file.name}</span>
-                                    </li>
+                    <div className='ul-wrapper'>
+                        <ul>
+                            {
+                                Array.from(files).map((file, index) => {
+                                    return (
+                                        <li key={index}>
+                                            <p>{file.name}</p>
+                                        </li>
+                                    )
+                                }
                                 )
                             }
-                            )
-                        }
-                    </ul>
+                        </ul>
+                    </div>
                     <div className='action-buttons'>
                         <button className="button button-upload" onClick={handleUpload}>
                             <FontAwesomeIcon icon={faUpload} size="lg" />
@@ -56,6 +60,7 @@ function DragDropFiles() {
                         <button className="button button-cancel" onClick={() => setFiles(null)}>
                             <FontAwesomeIcon icon={faTrash} size="lg" />
                             Clear</button>
+                        <LanguageSelector />
                     </div>
                 </div>
 
