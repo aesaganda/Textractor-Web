@@ -12,11 +12,17 @@ function DragDropFiles() {
         e.preventDefault();
     }
 
+    //Yalnızca bir dosya seçilmesini sağlamak için
     const handleDrop = (e) => {
         e.preventDefault();
-        const files = e.dataTransfer.files;
-        const filesArray = Array.from(files);
-        setFiles(filesArray);
+        const file = e.dataTransfer.files[0];
+        setFiles([file]);
+
+        // e.preventDefault();
+        // const files = e.dataTransfer.files;
+        // const filesArray = Array.from(files);
+        // setFiles(filesArray);
+        
     }
 
     //send files to server
@@ -66,7 +72,7 @@ function DragDropFiles() {
                     <FontAwesomeIcon icon={faFile} size="2x" />
                     <h3>Drag and drop to files upload!</h3>
                     <p>or</p>
-                    <input type="file" multiple onChange={(e) => setFiles(e.target.files)} hidden ref={inputRef} />
+                    <input type="file" onChange={(e) => setFiles(e.target.files)} hidden ref={inputRef} />
                     <button className='file-select-button' onClick={() => {
                         inputRef.current.click();
                     }}>
