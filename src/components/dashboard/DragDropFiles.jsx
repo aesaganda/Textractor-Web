@@ -1,13 +1,16 @@
 import { useState, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faFile, faUpload, faTrash } from '@fortawesome/free-solid-svg-icons'
-import { errorAlert, infoAlert, successAlert } from '../../helpers/AlertHelper';
+import { infoAlert } from '../../helpers/AlertHelper';
+import { toast } from 'react-toastify';
 import LanguageSelector from './LanguageSelector';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
 function DragDropFiles({ onDataChange }) {
     const [files, setFiles] = useState(null);
     const [language, setLanguage] = useState('');
+    const [responseData, setResponseData] = useState("")
 
     const handleLanguageChange = (data) => {
         setLanguage(data);
@@ -19,29 +22,47 @@ function DragDropFiles({ onDataChange }) {
         e.preventDefault();
     }
 
-    //Yalnızca bir dosya seçilmesini sağlamak için
     const handleDrop = (e) => {
         e.preventDefault();
         const file = e.dataTransfer.files[0];
-        setFiles([file]);
+        setFiles(file);
         onDataChange("");
     }
 
+    const toBase64 = file => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+      });
+
     //send files to server
-    const handleUpload = () => {
-        infoAlert("Uploading files...");
-        errorAlert("Error uploading files!");
-        successAlert("Files uploaded successfully!");
+    const handleUpload = async () => {
+        const id = toast.loading("Uploading files...");
+        var start = new Date().getTime();
+
+        const base64 = await toBase64(files);
+
+        await axios.post("https://textractor.marun.tk/api/recognize", {
+            imageUrl: base64, language: language
+          })
+            .then(function (response) {
+                setResponseData(response.data.data);
+                onDataChange(response.data.data);
+                toast.update(id, { render:"Files uploaded successfully!", type: "success", isLoading: false, closeOnClick: true, autoClose: 4000}); 
+            })
+            .catch(function (error) {
+                console.log(error);
+                toast.update(id, { render: "Error uploading files!", type: "error", isLoading: false, closeOnClick: true, autoClose: 4000 });
+            });
+
         setLanguage('');
         setFiles(null);
-        console.log(files[0]);
-        console.log(language);
 
-
-        // upload files to server
-        // response server data
-        const responseData = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit velit iste consequuntur quaerat! Commodi dolor similique veritatis, consectetur nam aut. Deleniti ipsum doloribus, neque unde voluptate ea molestias vel adipisci?Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit velit iste consequuntur quaerat! Commodi dolor similique veritatis, consectetur nam aut. Deleniti ipsum doloribus, neque unde voluptate ea molestias vel adipisci?Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit velit iste consequuntur quaerat! Commodi dolor similique veritatis, consectetur nam aut. Deleniti ipsum doloribus, neque unde voluptate ea molestias vel adipisci?Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit velit iste consequuntur quaerat! Commodi dolor similique veritatis, consectetur nam aut. Deleniti ipsum doloribus, neque unde voluptate ea molestias vel adipisci?Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit velit iste consequuntur quaerat! Commodi dolor similique veritatis, consectetur nam aut. Deleniti ipsum doloribus, neque unde voluptate ea molestias vel adipisci?Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit velit iste consequuntur quaerat! Commodi dolor similique veritatis, consectetur nam aut. Deleniti ipsum doloribus, neque unde voluptate ea molestias vel adipisci?";
-        onDataChange(responseData);
+        var end = new Date().getTime();
+        var time = end - start;
+        time = time / 1000;
+        infoAlert("Processing time: " + time + " s");
     }
 
     if (files) {
@@ -97,7 +118,7 @@ function DragDropFiles({ onDataChange }) {
                     <h3>Drag and drop to files upload!</h3>
                     <p>or</p>
                     <input type="file" onChange={(e) => {
-                        setFiles(e.target.files);
+                        setFiles(e.target.files[0]);
                         onDataChange("");
                     }} hidden ref={inputRef} />
                     <button className='file-select-button' onClick={() => {
